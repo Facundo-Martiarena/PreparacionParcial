@@ -12,8 +12,8 @@ public class Programa {
     public static void main(String[] args) {
       // cargar grafo con casas y distancias
         TGrafoRedElectrica laRed =  (TGrafoRedElectrica) UtilGrafos.cargarGrafo(
-                "src/barrio.csv",
-                "src/distancias.csv",
+                "PD3/src/main/java/uy/edu/ucu/aed2/barrio.txt",
+                "PD3/src/main/java/uy/edu/ucu/aed2/distancias.txt",
                 false, TGrafoRedElectrica.class);
        
         /*
@@ -23,5 +23,12 @@ public class Programa {
         y las conexiones establecidas, una por linea (origen, destino, costo)
         
         */
+        TAristas aristasRed = laRed.mejorRedElectrica();
+        aristasRed.imprimirEtiquetas();
+        Double costoCableado = 0d;
+        for (TArista tArista : aristasRed) {
+          costoCableado += tArista.costo;
+        }
+        System.out.println(costoCableado);
     }
 }

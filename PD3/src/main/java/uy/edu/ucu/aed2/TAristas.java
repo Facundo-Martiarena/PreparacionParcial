@@ -1,7 +1,7 @@
 package uy.edu.ucu.aed2;
 
 import java.util.Collection;
-
+import java.util.Comparator;
 import java.util.LinkedList;
 
 public class TAristas extends LinkedList<TArista> {
@@ -18,7 +18,13 @@ public class TAristas extends LinkedList<TArista> {
      * @return
      */
     public TArista buscar(Comparable etOrigen, Comparable etDestino) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (TArista laa : this) {
+            if ((laa.getEtiquetaOrigen().equals(etOrigen)) && laa.getEtiquetaDestino().equals(etDestino)) {
+                return laa;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -30,7 +36,19 @@ public class TAristas extends LinkedList<TArista> {
      * @return
      */
     public TArista buscarMin(Collection<Comparable> VerticesU, Collection<Comparable> VerticesV) {
-       
+       TArista tA = null;
+        TArista tAMin = null;
+        Double costoMin = Double.MAX_VALUE;
+        for (Comparable u : VerticesU) {
+            for (Comparable v : VerticesV) {
+                tA = buscar(u,v);
+                if (tA != null && tA.costo < costoMin) {
+                    tAMin = tA;
+                    costoMin = tA.costo;
+                }
+            }
+        }
+        return tAMin;
         //---------COMPLETAR ALGORITMO--------
         // para todo u en Vertices U
         // para todo v en Vertices V
@@ -40,7 +58,7 @@ public class TAristas extends LinkedList<TArista> {
         // fin para todo v
         // fin para todo u
         // devolver tAMin
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //To change body of generated methods, choose Tools | Templates.
     }
 
     public String imprimirEtiquetas() {
@@ -48,8 +66,9 @@ public class TAristas extends LinkedList<TArista> {
             return null;
         }
         StringBuilder salida = new StringBuilder();
-        //TODO: Completar codigo que imprime todas las aristas de la lista en el siguiente formato:
-        //ORIGEN - DESTINO - COSTO
+        for(TArista tA : this){
+            salida.append(tA.getEtiquetaOrigen()+SEPARADOR_ELEMENTOS_IMPRESOS+tA.getEtiquetaDestino()+SEPARADOR_ELEMENTOS_IMPRESOS+tA.getCosto()+"\n");
+        }
         return salida.toString();
     }
 
@@ -61,4 +80,21 @@ public class TAristas extends LinkedList<TArista> {
         }
     }
 
+    public TAristas copiarTAristasOrdenado() {
+        Comparator comp = new Comparator<TArista>() {
+            public int compare(TArista ar1, TArista ar2){
+                return (int) (ar1.getCosto() - ar2.getCosto());  
+            } 
+        };
+        
+        sort(comp);
+        TAristas aristasNuevas = new TAristas();
+        for (TArista ar : this) {
+            aristasNuevas.add(ar);
+        }
+        return aristasNuevas;
+    }
+
+    
 }
+
