@@ -4,7 +4,7 @@ public class TArista implements IArista {
 
     protected Comparable etiquetaOrigen;
     protected Comparable etiquetaDestino;
-    protected double costo;
+    private double costo;
 
     public TArista(Comparable etiquetaOrigen, Comparable etiquetaDestino, double costo) {
         this.etiquetaOrigen = etiquetaOrigen;
@@ -43,9 +43,9 @@ public class TArista implements IArista {
     public void setCosto(double costo) {
         this.costo = costo;
     }
+
     public TArista aristaInversa (){
         return new TArista(this.getEtiquetaDestino(), this.getEtiquetaOrigen(),this.getCosto());
     }
-
     
 }

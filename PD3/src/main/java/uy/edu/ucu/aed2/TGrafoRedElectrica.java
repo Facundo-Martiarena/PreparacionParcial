@@ -20,7 +20,8 @@ public class TGrafoRedElectrica extends TGrafoNoDirigido implements IGrafoRedEle
 
     @Override
     public TAristas mejorRedElectrica() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        TGrafoNoDirigido grafo = new TGrafoNoDirigido(this.getVertices().values(), this.getLasAristas());
+        return grafo.mejorRedElectrica();
     }
 
 }

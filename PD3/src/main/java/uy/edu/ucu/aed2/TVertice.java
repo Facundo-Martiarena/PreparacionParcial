@@ -114,5 +114,19 @@ public class TVertice<T> implements IVertice {
         }
         return null;
     }
+
+    public boolean conectadoA(Comparable etiquetaDestino) {
+        setVisitado(true);
+        for (TAdyacencia ady : adyacentes) {
+            TVertice destino = ady.getDestino();
+            if (destino.getEtiqueta().equals(etiquetaDestino)) {
+                return true;
+            }
+            if (!destino.getVisitado()) {
+                if (destino.conectadoA(etiquetaDestino)) return true;
+            }
+        }
+        return false;
+    }
     
 }
