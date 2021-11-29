@@ -105,6 +105,14 @@ public TAristas getLasAristas() {
         
     }
 
+    public Collection<TVertice> listarContactos(String nombreActor, int maxSaltos){
+        TVertice actor = getVertices().get(nombreActor);
+        Collection<TVertice> visitados = new LinkedList<>();
+        if(actor != null){
+            actor.listarContactos(visitados, maxSaltos);
+        }
+        return visitados;
+    }
     
   
 

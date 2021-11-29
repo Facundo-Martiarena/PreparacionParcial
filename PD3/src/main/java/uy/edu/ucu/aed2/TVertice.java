@@ -2,6 +2,8 @@ package uy.edu.ucu.aed2;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 public class TVertice<T> implements IVertice {
 
@@ -10,6 +12,7 @@ public class TVertice<T> implements IVertice {
     private boolean visitado;
     private T datos;
     private TVertice predecesor;
+    private int bacon;
 
     public Comparable getEtiqueta() {
         return etiqueta;
@@ -128,5 +131,67 @@ public class TVertice<T> implements IVertice {
         }
         return false;
     }
+
+   
+	public int getBacon() {
+		return this.bacon;
+	}
+
+	
+	public void setBacon(int newBacon) {
+		this.bacon = newBacon;
+		
+	}
+
+    
+    public int numBacon(Comparable actor) {
+        TVertice x;
+        Queue<TVertice> c = new LinkedList<>();
+        this.setBacon(0);
+        this.setVisitado(true);
+        c.add(this);
+        while (!c.isEmpty()) {
+            x = c.poll();
+           for (TAdyacencia y:  (List<TAdyacencia>)x.getAdyacentes()) {
+                if (!y.getDestino().getVisitado()) {
+                    y.getDestino().setBacon(x.getBacon() + 1);
+                    y.getDestino().setVisitado(true);
+                    c.add(y.getDestino());
+                    if(y.getDestino().getEtiqueta().compareTo(actor) == 0){
+                        return y.getDestino().getBacon();
+                        
+                    }
+                }
+            }
+        }
+        
+        return -1;
+    }
+
+    public void listarContactos (Collection<TVertice> visitados, int maxSaltos){
+        TVertice x;
+        Queue<TVertice> c = new LinkedList<>();
+        this.setBacon(0);
+        this.setVisitado(true);
+        c.add(this);
+        visitados.add(this);
+        while (!c.isEmpty()) {
+            x = c.poll();
+           for (TAdyacencia y:  (List<TAdyacencia>)x.getAdyacentes()) {
+                if (!y.getDestino().getVisitado()) {
+                    y.getDestino().setBacon(x.getBacon() + 1);
+                    y.getDestino().setVisitado(true);
+                    c.add(y.getDestino());
+                    if(y.getDestino().getBacon() <= maxSaltos){
+                        visitados.add(y.getDestino());
+                        
+                    }
+                }
+            }
+        }
+        
+    }
+
+    
     
 }
