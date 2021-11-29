@@ -12,7 +12,7 @@ public class Programa {
     public static void main(String[] args) {
 
         TGrafoNoDirigido listaDeContactos = (TGrafoNoDirigido) UtilGrafos.cargarGrafo(
-          "PD3/src/main/java/uy/edu/ucu/aed2/barrio.txt", 
+          "PD3/src/main/java/uy/edu/ucu/aed2/barrioGuz.txt", 
           "PD3/src/main/java/uy/edu/ucu/aed2/distancias.txt", 
           false, TGrafoNoDirigido.class);
 
@@ -39,7 +39,7 @@ public class Programa {
         // System.out.println(costoCableado);
 
         int maxContact = 2;
-        Collection<TVertice> contactos = listaDeContactos.listarContactos("CASA2", maxContact);
+        Collection<TVertice> contactos = listaDeContactos.listarContactos("CASA1", maxContact);
         
 
 

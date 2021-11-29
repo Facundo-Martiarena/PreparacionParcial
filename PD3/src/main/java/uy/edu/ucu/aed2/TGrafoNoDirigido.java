@@ -98,11 +98,8 @@ public TAristas getLasAristas() {
             if(!resGuzman.contains(arista) && !resGuzman.contains(aristaInversa)){
                 resGuzman.add(arista);
             }
-
         }
         return resGuzman;
-        
-        
     }
 
     public Collection<TVertice> listarContactos(String nombreActor, int maxSaltos){
@@ -114,7 +111,13 @@ public TAristas getLasAristas() {
         return visitados;
     }
     
-  
-
-
+ public boolean hayCamino(Comparable etiquetaOrigen, Comparable etiquetaDestino){
+     TVertice verticeOrigen = this.buscarVertice(etiquetaOrigen);
+     TVertice verticeDestino = this.buscarVertice(etiquetaDestino);
+     if(verticeOrigen != null && verticeDestino != null){
+        return verticeOrigen.hayCamino(verticeDestino);
+     }
+     return false;
+    }
+ 
 }

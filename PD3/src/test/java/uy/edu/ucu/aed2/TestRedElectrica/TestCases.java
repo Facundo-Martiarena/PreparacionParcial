@@ -6,6 +6,7 @@ import org.junit.Test;
 import uy.edu.ucu.aed2.TArista;
 import uy.edu.ucu.aed2.TAristas;
 import uy.edu.ucu.aed2.TGrafoDirigido;
+import uy.edu.ucu.aed2.TGrafoNoDirigido;
 import uy.edu.ucu.aed2.TGrafoRedElectrica;
 import uy.edu.ucu.aed2.TVertice;
 
@@ -23,6 +24,7 @@ public class TestCases {
     Collection<TVertice> vertices;
     TAristas as;
     TGrafoRedElectrica g;
+    TGrafoNoDirigido g2;
 
     @Before
     public void setUp(){
@@ -72,6 +74,31 @@ public class TestCases {
         //assertEquals(2, aristasRed.size());
         assertEquals(expected,costoCableado);
     }
+
+    @Test
+    public void hayCamino(){
+        TArista a12 = new TArista("1", "2", 2);
+        TArista a23 = new TArista("2", "3", 5);
+        TArista a34 = new TArista("3", "4", 6);
+        
+        
+        as = new TAristas();
+        as.add(a12);
+        as.add(a23);
+        as.add(a34);
+        
+        g2 = new TGrafoNoDirigido(vertices, as);
+
+        boolean camino = g2.hayCamino("1", "4");
+        boolean noCamino = g2.hayCamino("1", "5");
+        
+        
+        
+        assertTrue(camino);
+        assertFalse(noCamino);
+    }
+
+
 
     
 }

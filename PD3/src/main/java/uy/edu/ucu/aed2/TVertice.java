@@ -189,8 +189,64 @@ public class TVertice<T> implements IVertice {
                 }
             }
         }
-        
     }
+
+    public void bpf(Collection<TVertice> visitados) {
+        setVisitado(true);
+        visitados.add(this);
+        for (TAdyacencia ady : adyacentes) {
+            TVertice destino = ady.getDestino();
+            if (!destino.getVisitado()) {
+                destino.bpf(visitados);
+            }
+        }
+    }
+
+    public boolean hayCamino(TVertice verticeDestino){
+        setVisitado(true);
+        boolean res = false;
+        for (TAdyacencia ady : adyacentes){
+            TVertice destino = ady.getDestino();
+            if(!destino.getVisitado()){
+                if (destino.getEtiqueta().compareTo(verticeDestino.getEtiqueta()) == 0){
+                    return true;
+                }else{
+                    res = destino.hayCamino(verticeDestino);
+            }
+            }
+        }
+        return res;
+    }
+
+    public void obtenerAnillos(TAnillosContagio losAnillos , int maxDistancia){
+        TVertice x;
+        Queue<TVertice> c = new LinkedList<>();
+        this.setBacon(0);
+        this.setVisitado(true);
+        c.add(this);
+        losAnillos.agregarContagio(this.getBacon(), this.getEtiqueta().toString());
+        while (!c.isEmpty()) {
+            x = c.poll();
+           for (TAdyacencia y:  (List<TAdyacencia>)x.getAdyacentes()) {
+                if (!y.getDestino().getVisitado()) {
+                    y.getDestino().setBacon(x.getBacon() + 1);
+                    y.getDestino().setVisitado(true);
+                    c.add(y.getDestino());
+                    if(maxDistancia == 0 || y.getDestino().getBacon() <= maxDistancia){
+                        losAnillos.agregarContagio(y.getDestino().getBacon(), y.getDestino().getEtiqueta().toString());
+                    }
+                    // IDEM QUE LA CONDICION DEL OR
+                    // else{
+                    //     if(y.getDestino().getBacon() <= maxDistancia){
+                    //         losAnillos.agregarContagio(y.getDestino().getBacon(), y.getDestino().getEtiqueta().toString());
+                    //     }
+                    // }
+                }
+            }
+        }
+    }
+
+
 
     
     
