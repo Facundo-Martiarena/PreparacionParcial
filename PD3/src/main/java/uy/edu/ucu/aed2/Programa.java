@@ -24,10 +24,10 @@ public class Programa {
         
         */
         TAristas aristasRed = laRed.mejorRedElectrica();
-        aristasRed.imprimirEtiquetas();
+        System.out.println(aristasRed.imprimirEtiquetas()); 
         Double costoCableado = 0d;
         for (TArista tArista : aristasRed) {
-          costoCableado += tArista.costo;
+          costoCableado += tArista.getCosto();
         }
         System.out.println(costoCableado);
     }
